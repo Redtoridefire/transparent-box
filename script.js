@@ -9,6 +9,7 @@ const heightValue = document.getElementById("heightValue");
 const resetButton = document.getElementById("resetBox");
 const apiKeyInput = document.getElementById("apiKeyInput");
 const modelSelect = document.getElementById("modelSelect");
+const frameToggle = document.getElementById("frameToggle");
 const promptInput = document.getElementById("promptInput");
 const responseOutput = document.getElementById("responseOutput");
 const sendButton = document.getElementById("sendButton");
@@ -149,11 +150,28 @@ const sendToChatGPT = async () => {
   }
 };
 
+const initializeFrameToggle = async () => {
+  if (!window.electronAPI) {
+    frameToggle.disabled = true;
+    return;
+  }
+
+  const isFrameless = await window.electronAPI.getFrameState();
+  frameToggle.checked = isFrameless;
+};
+
 opacityRange.addEventListener("input", (event) => updateOpacity(event.target.value));
 widthRange.addEventListener("input", updateBoxSize);
 heightRange.addEventListener("input", updateBoxSize);
 resetButton.addEventListener("click", resetPosition);
 sendButton.addEventListener("click", sendToChatGPT);
+
+frameToggle.addEventListener("change", async () => {
+  if (!window.electronAPI) {
+    return;
+  }
+  frameToggle.checked = await window.electronAPI.toggleFrame();
+});
 
 dragHandle.addEventListener("pointerdown", (event) => {
   event.preventDefault();
@@ -180,3 +198,4 @@ window.addEventListener("resize", () => {
 updateOpacity(opacityRange.value);
 updateBoxSize();
 resetPosition();
+initializeFrameToggle();

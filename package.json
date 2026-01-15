@@ -1,0 +1,41 @@
+{
+  "name": "transparent-box",
+  "version": "1.0.0",
+  "description": "Transparent floating prompt overlay for macOS.",
+  "main": "main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.transparentbox.app",
+    "productName": "Transparent Box",
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "styles.css",
+      "script.js"
+    ],
+    "mac": {
+      "category": "public.app-category.video",
+      "target": [
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "backgroundColor": "#f5f6fb",
+      "window": {
+        "width": 540,
+        "height": 420
+      }
+    }
+  }
+}
