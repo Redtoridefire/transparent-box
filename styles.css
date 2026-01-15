@@ -20,6 +20,11 @@ body {
   padding: 32px;
 }
 
+body.overlay-mode {
+  background: transparent;
+  padding: 0;
+}
+
 .app {
   width: min(1100px, 100%);
   display: flex;
@@ -27,11 +32,31 @@ body {
   gap: 24px;
 }
 
+body.overlay-mode .app {
+  width: auto;
+  padding: 24px;
+}
+
 .app__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+body.overlay-mode .app__header,
+body.overlay-mode .controls,
+body.overlay-mode .stage__hint {
+  display: none;
+}
+
+body.overlay-mode.controls-visible .app__header,
+body.overlay-mode.controls-visible .controls {
+  display: flex;
+}
+
+body.overlay-mode.controls-visible .controls {
+  display: grid;
 }
 
 .app__header h1 {
@@ -154,6 +179,20 @@ body {
   box-shadow: 0 30px 60px rgba(16, 24, 40, 0.4);
 }
 
+body.overlay-mode .stage {
+  min-height: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+body.overlay-mode.controls-visible .stage {
+  min-height: 520px;
+  background: linear-gradient(135deg, #0f172a, #1f2a44);
+  box-shadow: 0 30px 60px rgba(16, 24, 40, 0.4);
+  border-radius: 28px;
+}
+
 .stage__hint {
   position: absolute;
   inset: 24px auto auto 24px;
@@ -178,6 +217,12 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+body.overlay-mode .floating-box {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
 .floating-box__header {
   display: flex;
   justify-content: space-between;
@@ -187,6 +232,7 @@ body {
   cursor: grab;
   font-weight: 600;
   color: #111827;
+  -webkit-app-region: drag;
 }
 
 .floating-box__header:active {
@@ -211,6 +257,7 @@ body {
   font-size: 0.95rem;
   line-height: 1.5;
   color: #111827;
+  -webkit-app-region: no-drag;
 }
 
 .floating-box__response {
@@ -237,6 +284,11 @@ body {
   background: rgba(255, 255, 255, 0.35);
 }
 
+.floating-box__actions {
+  display: flex;
+  gap: 8px;
+}
+
 .floating-box__footer button {
   border: none;
   border-radius: 8px;
@@ -245,6 +297,16 @@ body {
   padding: 8px 14px;
   font-weight: 600;
   cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.ghost-button {
+  background: rgba(29, 34, 48, 0.12);
+  color: #1d2230;
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
 }
 
 .floating-box__status {

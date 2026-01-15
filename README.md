@@ -22,6 +22,9 @@ npm run start
 This launches a transparent, always-on-top window. Use the **Frameless Window** toggle to
 switch the native title bar on or off.
 
+In the macOS app, the overlay starts in a minimal floating mode (just the prompt box). Click
+**Settings** in the footer to reveal the full controls when you need them.
+
 ### Build a DMG
 
 ```bash

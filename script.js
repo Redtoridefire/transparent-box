@@ -14,6 +14,7 @@ const promptInput = document.getElementById("promptInput");
 const responseOutput = document.getElementById("responseOutput");
 const sendButton = document.getElementById("sendButton");
 const statusText = document.getElementById("statusText");
+const toggleControlsButton = document.getElementById("toggleControls");
 
 const defaultPosition = { x: 80, y: 120 };
 let currentPosition = { ...defaultPosition };
@@ -160,6 +161,19 @@ const initializeFrameToggle = async () => {
   frameToggle.checked = isFrameless;
 };
 
+const setControlsVisibility = (isVisible) => {
+  document.body.classList.toggle("controls-visible", isVisible);
+  toggleControlsButton.textContent = isVisible ? "Hide Settings" : "Settings";
+};
+
+const initializeOverlayMode = () => {
+  if (!window.electronAPI) {
+    return;
+  }
+  document.body.classList.add("overlay-mode");
+  setControlsVisibility(false);
+};
+
 opacityRange.addEventListener("input", (event) => updateOpacity(event.target.value));
 widthRange.addEventListener("input", updateBoxSize);
 heightRange.addEventListener("input", updateBoxSize);
@@ -171,6 +185,11 @@ frameToggle.addEventListener("change", async () => {
     return;
   }
   frameToggle.checked = await window.electronAPI.toggleFrame();
+});
+
+toggleControlsButton.addEventListener("click", () => {
+  const isVisible = document.body.classList.contains("controls-visible");
+  setControlsVisibility(!isVisible);
 });
 
 dragHandle.addEventListener("pointerdown", (event) => {
@@ -199,3 +218,4 @@ updateOpacity(opacityRange.value);
 updateBoxSize();
 resetPosition();
 initializeFrameToggle();
+initializeOverlayMode();

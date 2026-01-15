@@ -8,7 +8,7 @@
   </head>
   <body>
     <main class="app">
-      <header class="app__header">
+      <header class="app__header" id="appHeader">
         <div>
           <h1>Transparent Floating Text Box</h1>
           <p>
@@ -19,7 +19,7 @@
         <button class="app__reset" type="button" id="resetBox">Reset Position</button>
       </header>
 
-      <section class="controls">
+      <section class="controls" id="controlsPanel">
         <label class="control">
           <span>OpenAI API Key</span>
           <input
@@ -73,7 +73,7 @@
             <span class="floating-box__badge">Drag me</span>
           </div>
           <textarea
-            class="floating-box__textarea"
+            class="floating-box__textarea no-drag"
             id="promptInput"
             placeholder="Paste your prompt or notes here..."
           ></textarea>
@@ -81,7 +81,10 @@
             Responses from ChatGPT will appear here.
           </div>
           <div class="floating-box__footer">
-            <button type="button" id="sendButton">Send to ChatGPT</button>
+            <div class="floating-box__actions">
+              <button type="button" id="toggleControls" class="ghost-button">Settings</button>
+              <button type="button" id="sendButton">Send to ChatGPT</button>
+            </div>
             <span class="floating-box__status" id="statusText">Ready</span>
           </div>
         </div>
