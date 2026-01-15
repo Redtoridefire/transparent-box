@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  background-color: #f5f6fb;
-  color: #1d2230;
+  background-color: transparent;
+  color: #111827;
 }
 
 * {
@@ -11,98 +11,20 @@
   padding: 0;
 }
 
+html,
 body {
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #ffffff, #e9ecf5 70%);
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  padding: 32px;
+  height: 100%;
 }
 
-.app {
-  width: min(1100px, 100%);
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.app__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.app__header h1 {
-  font-size: 1.9rem;
-  margin-bottom: 8px;
-}
-
-.app__header p {
-  color: #4a5165;
-  max-width: 520px;
-}
-
-.app__reset {
-  border: none;
-  border-radius: 999px;
-  padding: 10px 20px;
-  background: #1d2230;
-  color: #ffffff;
-  cursor: pointer;
-  font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.app__reset:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(29, 34, 48, 0.2);
-}
-
-.controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  background: #ffffff;
-  padding: 16px 20px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(41, 47, 66, 0.08);
-}
-
-.control {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.95rem;
-  color: #3a4154;
-}
-
-.control input[type="range"] {
-  width: 100%;
-}
-
-.stage {
-  position: relative;
-  min-height: 520px;
-  border-radius: 28px;
-  background: linear-gradient(135deg, #0f172a, #1f2a44);
+body {
+  background: transparent;
   overflow: hidden;
-  box-shadow: 0 30px 60px rgba(16, 24, 40, 0.4);
-}
-
-.stage__hint {
-  position: absolute;
-  inset: 24px auto auto 24px;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
-  line-height: 1.4;
 }
 
 .floating-box {
-  position: absolute;
-  top: 120px;
-  left: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 420px;
   height: 280px;
   display: flex;
@@ -157,19 +79,9 @@ body {
 .floating-box__footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
+  justify-content: flex-end;
+  padding: 10px 16px;
   background: rgba(255, 255, 255, 0.35);
-}
-
-.floating-box__footer button {
-  border: none;
-  border-radius: 8px;
-  background: #1d2230;
-  color: #ffffff;
-  padding: 8px 14px;
-  font-weight: 600;
-  cursor: pointer;
 }
 
 .floating-box__status {
@@ -177,17 +89,9 @@ body {
   color: #334155;
 }
 
-@media (max-width: 768px) {
-  body {
-    padding: 16px;
-  }
-
-  .app__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
+@media (max-width: 540px) {
   .floating-box {
-    width: 320px;
+    width: min(320px, 90vw);
+    height: 220px;
   }
 }

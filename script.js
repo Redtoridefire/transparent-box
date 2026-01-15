@@ -1,47 +1,18 @@
 const floatingBox = document.getElementById("floatingBox");
 const dragHandle = document.getElementById("dragHandle");
-const opacityRange = document.getElementById("opacityRange");
-const opacityValue = document.getElementById("opacityValue");
-const widthRange = document.getElementById("widthRange");
-const widthValue = document.getElementById("widthValue");
-const heightRange = document.getElementById("heightRange");
-const heightValue = document.getElementById("heightValue");
-const resetButton = document.getElementById("resetBox");
 
-const defaultPosition = { x: 80, y: 120 };
-let currentPosition = { ...defaultPosition };
-
+let currentPosition = { x: 0, y: 0 };
 let isDragging = false;
 let dragOffset = { x: 0, y: 0 };
 
-const updateOpacity = (value) => {
-  const clamped = Math.min(Math.max(parseFloat(value), 0.1), 1);
-  floatingBox.style.background = `rgba(255, 255, 255, ${clamped})`;
-  opacityValue.textContent = clamped.toFixed(2);
-};
-
-const updateBoxSize = () => {
-  const width = parseInt(widthRange.value, 10);
-  const height = parseInt(heightRange.value, 10);
-  floatingBox.style.width = `${width}px`;
-  floatingBox.style.height = `${height}px`;
-  widthValue.textContent = `${width}px`;
-  heightValue.textContent = `${height}px`;
-};
-
 const clampPosition = (x, y) => {
-  const stage = floatingBox.parentElement;
-  const bounds = stage.getBoundingClientRect();
   const boxBounds = floatingBox.getBoundingClientRect();
-
-  const minX = 0;
-  const minY = 0;
-  const maxX = bounds.width - boxBounds.width;
-  const maxY = bounds.height - boxBounds.height;
+  const maxX = Math.max(window.innerWidth - boxBounds.width, 0);
+  const maxY = Math.max(window.innerHeight - boxBounds.height, 0);
 
   return {
-    x: Math.min(Math.max(x, minX), maxX),
-    y: Math.min(Math.max(y, minY), maxY),
+    x: Math.min(Math.max(x, 0), maxX),
+    y: Math.min(Math.max(y, 0), maxY),
   };
 };
 
@@ -49,6 +20,13 @@ const setPosition = (x, y) => {
   const { x: clampedX, y: clampedY } = clampPosition(x, y);
   currentPosition = { x: clampedX, y: clampedY };
   floatingBox.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
+};
+
+const centerPosition = () => {
+  const boxBounds = floatingBox.getBoundingClientRect();
+  const centeredX = (window.innerWidth - boxBounds.width) / 2;
+  const centeredY = (window.innerHeight - boxBounds.height) / 2;
+  setPosition(centeredX, centeredY);
 };
 
 const startDrag = (event) => {
@@ -64,24 +42,14 @@ const onDrag = (event) => {
   if (!isDragging) {
     return;
   }
-  const stageRect = floatingBox.parentElement.getBoundingClientRect();
-  const newX = event.clientX - stageRect.left - dragOffset.x;
-  const newY = event.clientY - stageRect.top - dragOffset.y;
+  const newX = event.clientX - dragOffset.x;
+  const newY = event.clientY - dragOffset.y;
   setPosition(newX, newY);
 };
 
 const stopDrag = () => {
   isDragging = false;
 };
-
-const resetPosition = () => {
-  setPosition(defaultPosition.x, defaultPosition.y);
-};
-
-opacityRange.addEventListener("input", (event) => updateOpacity(event.target.value));
-widthRange.addEventListener("input", updateBoxSize);
-heightRange.addEventListener("input", updateBoxSize);
-resetButton.addEventListener("click", resetPosition);
 
 dragHandle.addEventListener("pointerdown", (event) => {
   event.preventDefault();
@@ -105,6 +73,4 @@ window.addEventListener("resize", () => {
   setPosition(x, y);
 });
 
-updateOpacity(opacityRange.value);
-updateBoxSize();
-resetPosition();
+centerPosition();
