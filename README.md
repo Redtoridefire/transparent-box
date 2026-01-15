@@ -1,8 +1,8 @@
 # Transparent Box
 
 This lightweight demo provides a draggable, translucent prompt window that can float over
-video or camera feeds in a browser. Use the sliders to adjust opacity and size, then drag
-the prompt overlay wherever you need it.
+video or camera feeds in a browser. The page background stays fully transparent so only the
+floating overlay box is visible.
 
 ## Quick start
 
@@ -10,4 +10,4 @@ the prompt overlay wherever you need it.
 python -m http.server 4173
 ```
 
-Open `http://localhost:4173/index.html` in your browser.
+Open `http://localhost:4173/` (or `/index.html`) in your browser.
