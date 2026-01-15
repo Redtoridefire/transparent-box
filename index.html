@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transparent Floating Text Box</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <div>
+          <h1>Transparent Floating Text Box</h1>
+          <p>
+            Drag the box anywhere on the screen and adjust transparency for an on-camera
+            overlay.
+          </p>
+        </div>
+        <button class="app__reset" type="button" id="resetBox">Reset Position</button>
+      </header>
+
+      <section class="controls">
+        <label class="control">
+          <span>Opacity</span>
+          <input id="opacityRange" type="range" min="0.1" max="1" step="0.05" value="0.85" />
+          <span id="opacityValue">0.85</span>
+        </label>
+        <label class="control">
+          <span>Box Width</span>
+          <input id="widthRange" type="range" min="280" max="720" step="20" value="420" />
+          <span id="widthValue">420px</span>
+        </label>
+        <label class="control">
+          <span>Box Height</span>
+          <input id="heightRange" type="range" min="180" max="480" step="20" value="280" />
+          <span id="heightValue">280px</span>
+        </label>
+      </section>
+
+      <section class="stage" aria-label="Video stage">
+        <div class="stage__hint">
+          <p>Simulated video feed area.</p>
+          <p>Place the floating prompt box over this region.</p>
+        </div>
+        <div class="floating-box" id="floatingBox" aria-label="Floating prompt box">
+          <div class="floating-box__header" id="dragHandle">
+            <span>Prompt Overlay</span>
+            <span class="floating-box__badge">Drag me</span>
+          </div>
+          <textarea
+            class="floating-box__textarea"
+            placeholder="Paste your prompt or notes here..."
+          ></textarea>
+          <div class="floating-box__footer">
+            <button type="button">Send to AI</button>
+            <span class="floating-box__status">Ready</span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
